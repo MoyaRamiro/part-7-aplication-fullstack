@@ -41,8 +41,6 @@ const App = () => {
   if (loggedUser === null) {
     return (
       <div>
-        <h2>Log in to application</h2>
-
         {notification && (
           <Message message={notification.msg} color={notification.color} />
         )}
@@ -53,30 +51,49 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage:
+          'linear-gradient(135deg, rgb(150, 37, 9), rgb(245, 204, 173))',
+        minHeight: '100vh',
+        margin: 0,
+        padding: 0,
+        width: '100%',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
       <Menu loggedUser={loggedUser} />
-
-      <h2>blogs</h2>
 
       {notification && (
         <Message message={notification.msg} color={notification.color} />
       )}
 
-      <Togglable buttonLabel='create new blog'>
-        <CreateBlogs />
-      </Togglable>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-center',
+        }}
+      >
+        <Togglable buttonLabel='create new blog'>
+          <CreateBlogs />
+        </Togglable>
 
-      <Routes>
-        <Route path={'/'} element={<BlogList blogs={blogs} />} />
-        <Route path={'/blogs'} element={<BlogList blogs={blogs} />} />
-        <Route path={'/blogs/:id'} element={<Blog loggedUser={loggedUser} />} />
-        <Route path={'/users'} element={<Users users={users} />} />
-        <Route
-          path={'/users/:id'}
-          element={<User user={userMatch} loggedUser={loggedUser} />}
-        />
-        <Route path={'/login'} element={<Login />} />
-      </Routes>
+        <Routes>
+          <Route path={'/'} element={<BlogList blogs={blogs} />} />
+          <Route path={'/blogs'} element={<BlogList blogs={blogs} />} />
+          <Route
+            path={'/blogs/:id'}
+            element={<Blog loggedUser={loggedUser} />}
+          />
+          <Route path={'/users'} element={<Users users={users} />} />
+          <Route
+            path={'/users/:id'}
+            element={<User user={userMatch} loggedUser={loggedUser} />}
+          />
+          <Route path={'/login'} element={<Login />} />
+        </Routes>
+      </div>
     </div>
   );
 };

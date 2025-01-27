@@ -5,6 +5,12 @@ import {
   removeNotification,
 } from '../reducers/notification';
 import { addBlog } from '../reducers/blog';
+import {
+  Input,
+  Button,
+  TitleInput,
+  CreateBlogContainer,
+} from '../styles/styledComponents';
 
 const CreateBlogs = () => {
   const [title, setTitle] = useState('');
@@ -14,6 +20,24 @@ const CreateBlogs = () => {
 
   const handleCreate = async (event) => {
     event.preventDefault();
+
+    if (title === '' || author === '' || url === '') {
+      dispatch(
+        createNotification({
+          msg: 'incomplete data',
+          color: 'red',
+        })
+      );
+
+      setTimeout(
+        () => {
+          dispatch(removeNotification());
+        },
+
+        5000
+      );
+      return;
+    }
 
     const isBlogCreated = await dispatch(
       addBlog({ title: title, author: author, url: url })
@@ -57,13 +81,13 @@ const CreateBlogs = () => {
   };
 
   return (
-    <>
-      <h2>create new</h2>
+    <CreateBlogContainer>
+      <h2 style={{ paddingBottom: '0.5rem' }}>Create new</h2>
 
       <form onSubmit={handleCreate}>
         <div>
-          title:
-          <input
+          <TitleInput style={{ paddingRight: '1rem' }}>Title:</TitleInput>
+          <Input
             data-testid='title'
             type='text'
             value={title}
@@ -72,8 +96,8 @@ const CreateBlogs = () => {
           />
         </div>
         <div>
-          author
-          <input
+          <TitleInput>Author: </TitleInput>
+          <Input
             data-testid='author'
             type='text'
             value={author}
@@ -82,8 +106,8 @@ const CreateBlogs = () => {
           />
         </div>
         <div>
-          url
-          <input
+          <TitleInput style={{ paddingRight: '1.7rem' }}>Url:</TitleInput>
+          <Input
             data-testid='url'
             type='text'
             value={url}
@@ -91,9 +115,9 @@ const CreateBlogs = () => {
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
-        <button type='submit'>create</button>
+        <Button type='submit'>create</Button>
       </form>
-    </>
+    </CreateBlogContainer>
   );
 };
 

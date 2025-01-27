@@ -6,6 +6,7 @@ import notificationReducer from './reducers/notification';
 import blogsReducer from './reducers/blog';
 import userReducer from './reducers/user';
 import { BrowserRouter as Router } from 'react-router-dom';
+import './index.css';
 
 const store = configureStore({
   reducer: {
@@ -16,9 +17,11 @@ const store = configureStore({
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Router>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Router>
+  <div>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
+  </div>
 );

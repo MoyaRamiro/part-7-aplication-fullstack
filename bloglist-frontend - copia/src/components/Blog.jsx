@@ -2,6 +2,17 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBlog, updateBlog, addComment } from '../reducers/blog';
 import { useMatch, useNavigate } from 'react-router-dom';
+import {
+  BlogContainer,
+  BlogLink,
+  BlogTitle,
+  Button,
+  CancelButton,
+  CommentItem,
+  CommentList,
+  CommentsSection,
+  Input,
+} from '../styles/styledComponents';
 
 const Blog = ({ loggedUser }) => {
   const blogs = useSelector((state) => state.blogs);
@@ -78,45 +89,50 @@ const Blog = ({ loggedUser }) => {
   }
 
   return (
-    <div className='blog'>
-      <h2>
-        {blog.title} {blog.author} <br />
-      </h2>
-      <a href={blog.url}>{blog.url}</a>
+    <BlogContainer className='blog'>
+      <BlogTitle>
+        {blog.title} by {blog.author} <br />
+      </BlogTitle>
+      <BlogLink href={blog.url}>{blog.url}</BlogLink>
       <br />
-      likes {blog ? likes : 'Loading...'}
-      <button type='button' onClick={increaseLikes}>
+      <b>LIKES</b> {blog ? likes : 'Loading...'}
+      <Button type='button' onClick={increaseLikes}>
         like
-      </button>
+      </Button>
       <br />
-      {blog?.user?.name}
+      added by {blog?.user?.name}
+      <br />
       <br />
       <div>
         {loggedUser.username === blog.user.username && (
-          <button type='button' style={removeButtonStyle} onClick={removeBlog}>
+          <CancelButton
+            type='button'
+            style={removeButtonStyle}
+            onClick={removeBlog}
+          >
             remove
-          </button>
+          </CancelButton>
         )}
       </div>
-      <div>
-        <h2>comments</h2>
+      <CommentsSection>
+        <h3>Comments</h3>
         <form onSubmit={handleCommentSubmit}>
-          <input
+          <Input
             type='text'
             placeholder='comment...'
             value={comment}
             onChange={({ target }) => setComment(target.value)}
-          ></input>
-          <button type='submit'>add comment</button>
+          ></Input>
+          <Button type='submit'>add comment</Button>
         </form>
 
-        <ul>
+        <CommentList>
           {blog?.comments?.map((comment) => (
-            <li key={comment._id}>{comment.comment}</li>
+            <CommentItem key={comment._id}>{comment.comment}</CommentItem>
           ))}
-        </ul>
-      </div>
-    </div>
+        </CommentList>
+      </CommentsSection>
+    </BlogContainer>
   );
 };
 

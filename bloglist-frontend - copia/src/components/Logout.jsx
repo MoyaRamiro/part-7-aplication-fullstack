@@ -5,6 +5,7 @@ import {
 } from '../reducers/notification';
 import { removeActiveUser } from '../reducers/user';
 import { useNavigate } from 'react-router-dom';
+import { CancelButton } from '../styles/styledComponents';
 
 const Logout = ({ user }) => {
   const dispatch = useDispatch();
@@ -27,13 +28,12 @@ const Logout = ({ user }) => {
   };
 
   return (
-    <span>
-      {user.name} logged in
-      <span> </span>
-      <button type='button' onClick={logout}>
+    <>
+      <b style={{ margin: '1rem' }}>{user.name} logged in</b>
+      <CancelButton type='button' onClick={logout}>
         logout
-      </button>
-    </span>
+      </CancelButton>
+    </>
   );
 };
 

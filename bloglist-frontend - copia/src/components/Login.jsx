@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import loginService from '../services/login';
 import blogsService from '../services/blogs';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   createNotification,
@@ -9,6 +8,13 @@ import {
 } from '../reducers/notification';
 import { addActiveUser } from '../reducers/user';
 import { useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Input,
+  InputField,
+  LoginContainer,
+  LoginForm,
+} from '../styles/styledComponents';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -48,31 +54,28 @@ const Login = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            data-testid='username'
-            type='text'
-            value={username}
-            name='Username'
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            data-testid='password'
-            type='password'
-            value={password}
-            name='Password'
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type='submit'>login</button>
-      </form>
-    </>
+    <LoginContainer>
+      <LoginForm onSubmit={handleLogin}>
+        <h2>Log in to application</h2>
+        <label> Username:</label>
+        <Input
+          data-testid='username'
+          type='text'
+          value={username}
+          name='Username'
+          onChange={({ target }) => setUsername(target.value)}
+        />
+        <label> Password:</label>
+        <Input
+          data-testid='password'
+          type='password'
+          value={password}
+          name='Password'
+          onChange={({ target }) => setPassword(target.value)}
+        />
+        <Button type='submit'>login</Button>
+      </LoginForm>
+    </LoginContainer>
   );
 };
 

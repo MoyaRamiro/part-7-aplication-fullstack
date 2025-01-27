@@ -1,4 +1,9 @@
-import { Link } from 'react-router-dom';
+import {
+  BlogCard,
+  Page,
+  StyledLink,
+  TruncatedText,
+} from '../styles/styledComponents';
 
 const BlogList = ({ blogs }) => {
   const blogStyle = {
@@ -10,19 +15,22 @@ const BlogList = ({ blogs }) => {
   };
 
   return (
-    <div className='blogs'>
+    <Page className='blogs'>
+      <h2 style={{ margin: '1rem' }}>Blogs</h2>
       {[...blogs]
         .sort((a, b) => b.likes - a.likes)
         .map((blog) => (
-          <div key={blog.id} style={blogStyle}>
-            <Link to={`blogs/${blog.id}`}>{blog.title}</Link>
-          </div>
+          <BlogCard key={blog.id} style={blogStyle}>
+            <StyledLink to={`blogs/${blog.id}`}>
+              <TruncatedText>{blog.title}</TruncatedText>
+            </StyledLink>
+          </BlogCard>
 
           //<Blog key={blog.id} blog={blog} loggedUser={user.user} />
         ))}
       <br />
       <br />
-    </div>
+    </Page>
   );
 };
 

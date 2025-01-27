@@ -1,18 +1,32 @@
+import React from 'react';
+import {
+  UserContainer,
+  UserHeader,
+  UserSubheading,
+  BlogList,
+  BlogListItem,
+} from '../styles/styledComponents';
+
 const User = ({ user }) => {
   if (!user) return null;
 
   return (
-    <>
-      <h2>{user.name}</h2>
+    <UserContainer>
+      <UserHeader>{user.name}</UserHeader>
+      <UserSubheading>Added Blogs</UserSubheading>
 
-      <h4>added blogs</h4>
-
-      <ul>
-        {user.blogs.map((blog) => (
-          <li key={blog.id}>{blog.title}</li>
-        ))}
-      </ul>
-    </>
+      <BlogList>
+        {user.blogs.length !== 0 ? (
+          user.blogs.map((blog) => (
+            <BlogListItem key={blog.id}>{blog.title}</BlogListItem>
+          ))
+        ) : (
+          <b style={{ color: 'white' }}>
+            No existen blogs agregados por {user.name} ....
+          </b>
+        )}
+      </BlogList>
+    </UserContainer>
   );
 };
 
